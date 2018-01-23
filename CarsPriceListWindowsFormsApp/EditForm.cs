@@ -1,4 +1,5 @@
 ﻿using BLL.DTO;
+using BLL.Interfaces;
 using BLL.Services;
 using System;
 using System.Collections.Generic;
@@ -21,12 +22,12 @@ namespace CarsPriceListWindowsFormsApp
         /// <summary>
         /// The items
         /// </summary>
-        ItemsService items;
+        IItemService items;
         /// <summary>
         /// Initializes a new instance of the <see cref="EditForm"/> class.
         /// </summary>
         /// <param name="items">The items.</param>
-        public EditForm(ItemsService items)
+        public EditForm(IItemService items)
         {
             InitializeComponent();
             FormLabel.Text = "Add Record";
@@ -37,7 +38,7 @@ namespace CarsPriceListWindowsFormsApp
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="items">The items.</param>
-        public EditForm(ItemDTO item, ItemsService items)
+        public EditForm(ItemDTO item, IItemService items)
         {
             InitializeComponent();
             this.items = items;

@@ -30,6 +30,7 @@ namespace BLL.DTO
         public FileDTO(string root)
         {
             this.root = root;
+            this.fileStream= new FileStream(root, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
         }
         /// <summary>
         /// Gets or sets the file root.

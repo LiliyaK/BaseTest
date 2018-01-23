@@ -18,7 +18,7 @@ namespace BLL.Services
     /// class implementing interface for choosing methods for reading and writing the file 
     /// </summary>
     /// <seealso cref="BLL.IFileService" />
-    public class FileService:  IFileService
+    public class FileService:  IFileService,IDisposable
     {
         /// <summary>
         /// The reader
@@ -39,7 +39,6 @@ namespace BLL.Services
         public FileService(string root)
         {
             this.file = new FileDTO(root);
-            this.file.fileStream = new FileStream(root, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
         }
 
         /// <summary>
@@ -69,15 +68,20 @@ namespace BLL.Services
         {
             if (items == null)
             {
-                throw new ValidationException("Id is not initialized", System.Reflection.MethodBase.GetCurrentMethod().Name);
+                throw new ValidationException("Item is not initialized", System.Reflection.MethodBase.GetCurrentMethod().Name);
             }
             if (IsConverted == true)
-                this.file.FileRoot = new FormatConversion(this.file).Converse();
+                this.file = new FileDTO(new FormatConversion(this.file).Converse());
             if (this.file.Extention == ".xml")
                 writer = new WriteXML(this.file.fileStream);
             if (this.file.Extention == ".bin")
                 writer = new WriteBinary(this.file.fileStream);
             writer.Write(Mapper.Map<IEnumerable<ItemDTO>, IEnumerable<Item>>(items));
+        }
+
+        public void Dispose()
+        {
+            this.file.fileStream.Close();
         }
     }
 }

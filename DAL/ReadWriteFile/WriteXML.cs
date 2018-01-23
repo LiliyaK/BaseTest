@@ -25,16 +25,21 @@ namespace DAL.ReadWriteFile
         /// </summary>
         XDocument xdoc;
         /// <summary>
+        /// The root element
+        /// </summary>
+        XElement rootElement;
+        /// <summary>
         /// Initializes a new instance of the <see cref="WriteXML"/> class.
         /// </summary>
         /// <param name="fs">The fs.</param>
         public WriteXML(FileStream fs)
         {
             this.filestream = fs;
+           this.rootElement = new XElement("Cars");
             if (filestream.Length == 0)
             {
                 xdoc = new XDocument();
-                xdoc.Add(new XElement("Cars"));
+                xdoc.Add(rootElement);
                 xdoc.Save(this.filestream);
             }
             fs.Seek(0, SeekOrigin.Begin);
@@ -46,7 +51,6 @@ namespace DAL.ReadWriteFile
         public void Write(IEnumerable<Item> items)
         {
             xdoc = new XDocument(XDocument.Load(filestream));
-            XElement cars = xdoc.Element("Cars");
             foreach (Item item in items)
             {
                 XElement car = new XElement("Car");
@@ -56,7 +60,7 @@ namespace DAL.ReadWriteFile
                 car.Add(carBrandNameElem);
                 car.Add(carPriceElem);
                 car.Add(carDateElem);
-                cars.Add(car);
+                this.rootElement.Add(car);
                 xdoc.Save(this.filestream);
             }
         }

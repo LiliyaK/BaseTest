@@ -44,6 +44,7 @@ namespace DAL.ReadWriteFile
                 binaryWriter.Write(item.BrandName);
                 binaryWriter.Write(item.Price);
             }
+            this.Dispose();
         }
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

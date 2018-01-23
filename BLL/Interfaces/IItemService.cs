@@ -27,5 +27,10 @@ namespace BLL.Interfaces
         /// </summary>
         /// <param name="item">The item.</param>
         void Delete(ItemDTO item);
+        /// <summary>
+        /// Saves the items to file according to its type
+        /// </summary>
+        /// <param name="IsConverted">if set to <c>true</c> [is converted].</param>
+        void Save(bool IsConverted);
     }
 }

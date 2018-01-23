@@ -26,14 +26,14 @@ namespace BLL.Services
         /// <summary>
         /// The file service
         /// </summary>
-        FileService fileService;
+        private IFileService fileService;
         /// <summary>
         /// Initializes a new instance of the <see cref="ItemsService"/> class.
         /// </summary>
         /// <param name="root">The root.</param>
         public ItemsService(string root)
         {
-            fileService = new FileService(root);
+            this.fileService = new FileService(root);
             this.itemRepository = new ItemRepository(Mapper.Map<IEnumerable<ItemDTO>, IEnumerable<Item>>(fileService.Read()));
         }
         /// <summary>

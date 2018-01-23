@@ -31,6 +31,7 @@ namespace BLL.BussinessModels
         /// <returns></returns>
         public string Converse()
         {
+            
             if (this.file.Extention == ".xml")
                 return Path.ChangeExtension(this.file.FileRoot, ".bin");
             else

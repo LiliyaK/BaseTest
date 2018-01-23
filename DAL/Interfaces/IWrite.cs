@@ -17,5 +17,6 @@ namespace DAL.Interfaces
         /// </summary>
         /// <param name="items">The items.</param>
         void Write(IEnumerable<Item> items);
+    
     }
 }

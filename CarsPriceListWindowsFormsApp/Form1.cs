@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL.DTO;
 using BLL.Services;
+using BLL.Interfaces;
 
 namespace CarsPriceListWindowsFormsApp
 {
@@ -21,7 +22,7 @@ namespace CarsPriceListWindowsFormsApp
         /// <summary>
         /// The items
         /// </summary>
-        ItemsService items;
+        IItemService items;
         /// <summary>
         /// Initializes a new instance of the <see cref="Form1"/> class.
         /// </summary>
@@ -34,11 +35,16 @@ namespace CarsPriceListWindowsFormsApp
         /// Initializes a new instance of the <see cref="Form1" /> class.
         /// </summary>
         /// <param name="items">The items.</param>
-        public Form1(ItemsService items)
+        public Form1(IItemService items)
         {
             this.items = items;
             InitializeComponent();
             ListView();
+            Add_new_item.Enabled = true;
+            Edit.Enabled = true;
+            Delete.Enabled = true;
+            Update.Enabled = true;
+            FormatConversion.Enabled = true;
         }
 
         /// <summary>
@@ -51,16 +57,13 @@ namespace CarsPriceListWindowsFormsApp
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = @"C:\Users\KamaletdinovaL\Documents\FilesForPriceList";
             openFileDialog.Filter = "Data files (*.xml;*.bin)|*.xml;*.bin|All files (*.*)|*.*";
-            openFileDialog.ShowDialog();
-            items = new ItemsService(openFileDialog.FileName);
             try
             {
-                this.ListView();
+                openFileDialog.ShowDialog();
+                items = new ItemsService(openFileDialog.FileName);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch(Exception ex) { MessageBox.Show(ex.Message); }
+            this.ListView();
             Add_new_item.Enabled = true;
             Edit.Enabled = true;
             Delete.Enabled = true;
@@ -72,7 +75,14 @@ namespace CarsPriceListWindowsFormsApp
         /// </summary>
         public void ListView()
         {
-            listBox.DataSource =items.GetAll(); 
+            try
+            {
+                listBox.DataSource = items.GetAll();
+            }
+            catch 
+            {
+              
+            }
         }
         /// <summary>
         /// Handles the Click event of the Add_new_item control.
@@ -96,7 +106,7 @@ namespace CarsPriceListWindowsFormsApp
             try
             {
                 items.Delete(listBox.SelectedItem as ItemDTO);
-                listBox.DataSource=null;
+                listBox.DataSource = null;
                 this.ListView();
             }
             catch (Exception ex)
@@ -115,6 +125,7 @@ namespace CarsPriceListWindowsFormsApp
             try
             {
                 items.Save(false);
+                MessageBox.Show("Saved");
             }
             catch (Exception ex)
             {
@@ -143,6 +154,7 @@ namespace CarsPriceListWindowsFormsApp
             try
             {
                 items.Save(true);
+                MessageBox.Show("Conversed and saved");
             }
             catch (Exception ex)
             {

@@ -93,6 +93,10 @@
       <Project>{64A4FCA6-5E76-4E49-9024-3A42EB2767D0}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{55F9D8D6-C7F5-477C-B0F3-49197A9C5F41}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
