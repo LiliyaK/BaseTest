@@ -25,23 +25,12 @@ namespace DAL.ReadWriteFile
         /// </summary>
         XDocument xdoc;
         /// <summary>
-        /// The root element
-        /// </summary>
-        XElement rootElement;
-        /// <summary>
         /// Initializes a new instance of the <see cref="WriteXML"/> class.
         /// </summary>
         /// <param name="fs">The fs.</param>
         public WriteXML(FileStream fs)
         {
             this.filestream = fs;
-           this.rootElement = new XElement("Cars");
-            if (filestream.Length == 0)
-            {
-                xdoc = new XDocument();
-                xdoc.Add(rootElement);
-                xdoc.Save(this.filestream);
-            }
             fs.Seek(0, SeekOrigin.Begin);
         }
         /// <summary>
@@ -50,19 +39,13 @@ namespace DAL.ReadWriteFile
         /// <param name="items">The items.</param>
         public void Write(IEnumerable<Item> items)
         {
-            xdoc = new XDocument(XDocument.Load(filestream));
-            foreach (Item item in items)
-            {
-                XElement car = new XElement("Car");
-                XElement carBrandNameElem = new XElement("BrandName", item.BrandName);
-                XElement carPriceElem = new XElement("Price", item.Price);
-                XElement carDateElem = new XElement("Date", item.Date);
-                car.Add(carBrandNameElem);
-                car.Add(carPriceElem);
-                car.Add(carDateElem);
-                this.rootElement.Add(car);
-                xdoc.Save(this.filestream);
-            }
+            xdoc = new XDocument(
+                   new XElement("Cars", items.Select(x =>
+              new XElement("Car",
+                  new XElement("BrandName", x.BrandName),
+                   new XElement("Price", x.Price),
+                  new XElement("Date", x.Date.ToShortDateString())))));
+            xdoc.Save(this.filestream);
         }
     }
 }

@@ -39,12 +39,12 @@ namespace DAL.ReadWriteFile
         {
             foreach (Item item in items)
             {
-                binaryWriter.Write(item.Date.ToBinary());
+                binaryWriter.Write(item.Date.ToShortDateString());
                 binaryWriter.Write(item.BrandName.Length);
                 binaryWriter.Write(item.BrandName);
                 binaryWriter.Write(item.Price);
             }
-            this.Dispose();
+
         }
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.

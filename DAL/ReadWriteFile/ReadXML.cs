@@ -29,19 +29,7 @@ namespace DAL.ReadWriteFile
            fs.Seek(0, SeekOrigin.Begin);
             this.xdoc = XDocument.Load(fs);
         }
-        /// <summary>
-        /// Gets the items.
-        /// </summary>
-        /// <value>
-        /// The items.
-        /// </value>
-        public IEnumerable<Item> Items
-        {
-           get
-            {
-                return this.Read();
-            }
-        }
+
         /// <summary>
         /// Reads this instance.
         /// </summary>

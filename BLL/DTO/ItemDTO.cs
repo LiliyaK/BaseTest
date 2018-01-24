@@ -12,10 +12,6 @@ namespace BLL.DTO
     public class ItemDTO
     {
         /// <summary>
-        /// The identifier
-        /// </summary>
-        private int id;
-        /// <summary>
         /// The date
         /// </summary>
         private DateTime date;
@@ -38,17 +34,6 @@ namespace BLL.DTO
             this.date = date;
             this.brandName = brandName;
             this.price = price;
-        }
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public int Id
-        {
-            get { return this.id; }
-            set { this.id = value; }
         }
         /// <summary>
         /// Gets or sets the date.
@@ -76,7 +61,6 @@ namespace BLL.DTO
             get { return this.brandName; }
             set
             {
-
                 this.brandName = value;
             }
         }

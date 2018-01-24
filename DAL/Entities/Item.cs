@@ -12,10 +12,6 @@ namespace DAL.Entities
     public class Item
     {
         /// <summary>
-        /// The identifier
-        /// </summary>
-        private int id;
-        /// <summary>
         /// The date
         /// </summary>
         private DateTime date;
@@ -44,35 +40,7 @@ namespace DAL.Entities
             this.brandName = brandName;
             this.price = price;
         }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Item"/> class.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="date">The date.</param>
-        /// <param name="brandName">Name of the brand.</param>
-        /// <param name="price">The price.</param>
-        public Item(int id, DateTime date, string brandName, int price)
-        {
-            this.id = id;
-            this.date = date;
-            this.brandName = brandName;
-            this.price = price;
-        }
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        public int Id
-        {
-            get { return this.id; }
-            set
-            {
-                if (id == 0)
-                    this.id = 1;
-            }
-        }
+       
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
@@ -84,8 +52,8 @@ namespace DAL.Entities
             get { return this.date; }
             set
             {
-                if (this.date.Day < 0 || this.date.Day > 31)
-                    this.date = value;
+                if (this.date.Day > 0 && this.date.Day < 31)
+                    this.date =value;
             }
         }
         /// <summary>
@@ -113,7 +81,6 @@ namespace DAL.Entities
             get { return this.price; }
             set
             {
-                if (this.price < 0)
                     this.price = value;
             }
         }
@@ -128,7 +95,7 @@ namespace DAL.Entities
         {
             if (obj == null) return false;
            Item item = obj as Item;
-            if (item.Date == this.Date)
+            if (item.Date.Date == this.Date.Date)
                 if (this.BrandName == item.BrandName)
                     if (this.Price == item.Price)
                         return true;

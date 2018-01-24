@@ -82,11 +82,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BLL\FileServiceTest.cs" />
-    <Compile Include="BLL\ItemServiceTest.cs" />
-    <Compile Include="DAL\ItemRepositoryTest.cs" />
+    <Compile Include="BLL\BussinessModelsTests\FileConversionTest.cs" />
+    <Compile Include="BLL\DTOTests\FileDTOTests.cs" />
+    <Compile Include="BLL\DTOTests\ItemDTOTests.cs" />
+    <Compile Include="BLL\ServicesTests\FileServiceTest.cs" />
+    <Compile Include="BLL\ServicesTests\ItemServiceTest.cs" />
+    <Compile Include="DAL\EntityTests\ItemTest.cs" />
+    <Compile Include="DAL\ReadWriteFileTests\ReadWriteBinaryTest.cs" />
+    <Compile Include="DAL\ReadWriteFileTests\ReadWriteXMLTest.cs" />
+    <Compile Include="DAL\RepositoryTests\ItemRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Setting\AutoMapperConfigTest.cs" />
+    <Compile Include="BLL\Setting\AutoMapperConfigTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -96,6 +102,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{64a4fca6-5e76-4e49-9024-3a42eb2767d0}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{55F9D8D6-C7F5-477C-B0F3-49197A9C5F41}</Project>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{13ef005c-4986-4b2d-8170-b59a62b88457}</Project>

@@ -10,6 +10,7 @@ using BLL.Interfaces;
 using AutoMapper;
 using BLL.Services;
 using BLL.Settings;
+using Core.Infrastructure;
 
 namespace CarsPriceListUnitTests.BLL
 {
@@ -21,14 +22,13 @@ namespace CarsPriceListUnitTests.BLL
     {
         Mock<IRepository> itemRepository;
         private IItemService itemService;
-        public ItemServiceTest()
+        [SetUp]
+        public void Init()
         {
-            AutoMapperConfig.Initialize();
             this.itemService = new ItemsService(@"C:\Users\KamaletdinovaL\Documents\FilesForPriceList\3.xml");
         }
 
-
-        [Test]
+        //[Test]
         public void Add_Test()
         {
             Item item = new Item() { Date=DateTime.Parse("10.10.2008"),BrandName= "Alpha Romeo Brera",Price= 37000 };
@@ -47,13 +47,20 @@ namespace CarsPriceListUnitTests.BLL
         [Test]
         public void GetAll_Test()
         {
-            //List<Item> itemsTest = new List<Item>() { new Item { Date = DateTime.Now, BrandName = "Brand3", Price = 400 } };
-            Assert.AreEqual(itemService.GetAll().Count, 1);
+            Item item = new Item() { Date = DateTime.Parse("10.10.2008"), BrandName = "Alpha Romeo Brera", Price = 37000 };
+            Assert.AreEqual(itemService.GetAll(), item);
         }
         [Test]
-        public void Save_Test()
+        public void Test_Add_ThrowsNullException()
         {
-            
+            ValidationException exception = Assert.Throws<ValidationException>(delegate { itemService.Add(null); });
+            Assert.AreEqual("Item is not initialized", exception.Message);
+        }
+        [Test]
+        public void Test_Delete_ThrowsNullException()
+        {
+            ValidationException exception = Assert.Throws<ValidationException>(delegate { itemService.Delete(null); });
+            Assert.AreEqual("Item is not initialized", exception.Message);
         }
     }
 }
